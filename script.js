@@ -402,19 +402,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setTimeout(tInitPosition, 50);
 
-    testimonialsPrev.addEventListener('click', function () {
-      if (tIsMobileMode()) return;
-      const step = tCardStep();
-      tOffset = Math.max(0, tOffset - step);
-      tApplyOffset();
-    });
+    // testimonialsPrev.addEventListener('click', function () {
+    //   if (tIsMobileMode()) return;
+    //   const step = tCardStep();
+    //   tOffset = Math.max(0, tOffset - step);
+    //   tApplyOffset();
+    // });
 
-    testimonialsNext.addEventListener('click', function () {
-      if (tIsMobileMode()) return;
-      const step = tCardStep();
-      tOffset = Math.min(tGetMax(), tOffset + step);
-      tApplyOffset();
-    });
+    // testimonialsNext.addEventListener('click', function () {
+    //   if (tIsMobileMode()) return;
+    //   const step = tCardStep();
+    //   tOffset = Math.min(tGetMax(), tOffset + step);
+    //   tApplyOffset();
+    // });
+    testimonialsPrev.addEventListener('click', function () {
+  if (tIsMobileMode()) {
+    const step = tCardStep();
+    testimonialsWrap.scrollLeft = Math.max(0, testimonialsWrap.scrollLeft - step);
+    return;
+  }
+  const step = tCardStep();
+  tOffset = Math.max(0, tOffset - step);
+  tApplyOffset();
+});
+
+testimonialsNext.addEventListener('click', function () {
+  if (tIsMobileMode()) {
+    const step = tCardStep();
+    testimonialsWrap.scrollLeft = Math.min(
+      testimonialsWrap.scrollWidth - testimonialsWrap.offsetWidth,
+      testimonialsWrap.scrollLeft + step
+    );
+    return;
+  }
+  const step = tCardStep();
+  tOffset = Math.min(tGetMax(), tOffset + step);
+  tApplyOffset();
+});
 
     let tStartX = 0;
     testimonialsTrack.addEventListener('touchstart', function (e) {
